@@ -5,6 +5,11 @@ const Main = () => (
   <>
     <S.Titulo_Contatos>Lista de contatos cadastrados:</S.Titulo_Contatos>
     <Container_Contatos />
+    <Container_Contatos />
+    <Container_Contatos />
+    <Container_Contatos />
+    <Container_Contatos />
+    <Container_Contatos />
   </>
 )
 

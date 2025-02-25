@@ -11,7 +11,7 @@ const EstiloGlobal = createGlobalStyle`
 
 export const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #1e3a8a;
 `
 
