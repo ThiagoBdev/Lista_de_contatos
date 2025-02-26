@@ -4,14 +4,23 @@ import * as S from './styles'
 
 type ContainerContatosProps = {
   contacts: Contact[]
+  setSelectedContact: (contact: Contact | null) => void
 }
 
-const Container_Contatos = ({ contacts }: ContainerContatosProps) => {
+const Container_Contatos = ({
+  contacts = [],
+  setSelectedContact
+}: ContainerContatosProps) => {
   const dispatch = useDispatch()
 
   const handleRemove = (id: number) => {
-    dispatch(removeContact({ id }))
+    dispatch(removeContact(id))
   }
+
+  const handleEdit = (contact: Contact) => {
+    setSelectedContact(contact)
+  }
+
   return (
     <div>
       {contacts.map((contact) => (
@@ -22,7 +31,9 @@ const Container_Contatos = ({ contacts }: ContainerContatosProps) => {
           <S.Info>{contact.email}</S.Info>
           <S.Sub_titulo>Numero:</S.Sub_titulo>
           <S.Info>{contact.number}</S.Info>
-          <S.Botao_editar>Editar</S.Botao_editar>
+          <S.Botao_editar onClick={() => handleEdit(contact)}>
+            Editar
+          </S.Botao_editar>
           <S.Botao_remover onClick={() => handleRemove(contact.id)}>
             Remover
           </S.Botao_remover>

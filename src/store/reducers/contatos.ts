@@ -14,11 +14,19 @@ const contactsSlice = createSlice({
     addContact: (state, action: PayloadAction<Contact>) => {
       state.push(action.payload)
     },
-    removeContact: (state, action) => {
-      return state.filter((contact) => contact.id !== action.payload.id)
+    removeContact: (state, action: PayloadAction<number>) => {
+      return state.filter((contact) => contact.id !== action.payload)
+    },
+    editContact: (state, action: PayloadAction<Contact>) => {
+      const index = state.findIndex(
+        (contact) => contact.id === action.payload.id
+      )
+      if (index !== -1) {
+        state[index] = { ...state[index], ...action.payload }
+      }
     }
   }
 })
 
-export const { addContact, removeContact } = contactsSlice.actions
+export const { addContact, removeContact, editContact } = contactsSlice.actions
 export default contactsSlice.reducer

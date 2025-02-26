@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux'
 import * as S from './styles'
-import { useState } from 'react'
-import { addContact } from '../../store/reducers/contatos'
+import { useState, useEffect } from 'react'
+import { addContact, Contact, editContact } from '../../store/reducers/contatos'
 
 interface FormData {
   name: string
@@ -9,13 +9,21 @@ interface FormData {
   number: string
 }
 
-const ContactForm = () => {
+interface ContactFormProps {
+  selectedContact: Contact | null
+  setSelectedContact: React.Dispatch<React.SetStateAction<Contact | null>>
+}
+
+const ContactForm = ({
+  selectedContact,
+  setSelectedContact
+}: ContactFormProps) => {
   const dispatch = useDispatch()
 
   const [form, setForm] = useState<FormData>({
-    name: '',
-    email: '',
-    number: ''
+    name: selectedContact ? selectedContact.name : '',
+    email: selectedContact ? selectedContact.email : '',
+    number: selectedContact ? selectedContact.email : ''
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,13 +38,33 @@ const ContactForm = () => {
       return
     }
 
-    dispatch(addContact({ id: Date.now(), ...form }))
+    if (selectedContact) {
+      dispatch(editContact({ ...selectedContact, ...form }))
+      setSelectedContact(null)
+    } else {
+      dispatch(addContact({ id: Date.now(), ...form }))
+    }
+
     setForm({ name: '', email: '', number: '' })
   }
 
+  useEffect(() => {
+    if (selectedContact) {
+      setForm({
+        name: selectedContact.name,
+        email: selectedContact.email,
+        number: selectedContact.number
+      })
+    } else {
+      setForm({ name: '', email: '', number: '' })
+    }
+  }, [selectedContact])
+
   return (
     <S.ContainerPrincipal>
-      <S.Titulo_Cadastro>Cadastro De Contatos</S.Titulo_Cadastro>
+      <S.Titulo_Cadastro>
+        {selectedContact ? 'Editar Contato' : 'Cadastro de Contato'}
+      </S.Titulo_Cadastro>
       <S.ContainerSecundario>
         <S.Formulario onSubmit={handleSubmit}>
           <S.Label htmlFor="nome">Nome Completo</S.Label>
@@ -63,7 +91,9 @@ const ContactForm = () => {
             value={form.number}
             onChange={handleChange}
           />
-          <S.Botao type="submit">Cadastrar</S.Botao>
+          <S.Botao type="submit">
+            {selectedContact ? 'Editar Contato' : 'Cadastro de Contato'}
+          </S.Botao>
         </S.Formulario>
       </S.ContainerSecundario>
     </S.ContainerPrincipal>
