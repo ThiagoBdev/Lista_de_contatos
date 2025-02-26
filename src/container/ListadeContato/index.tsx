@@ -1,9 +1,9 @@
-import Header from '../../components/Cabecalho'
+import ContactForm from '../../components/Cabecalho'
 import Main from '../../components/Principal'
 
 const ListadeContato = () => (
   <>
-    <Header />
+    <ContactForm />
     <Main />
   </>
 )

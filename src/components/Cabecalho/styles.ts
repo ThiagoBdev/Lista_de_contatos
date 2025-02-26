@@ -21,14 +21,18 @@ export const Titulo_Cadastro = styled.h1`
   color: #fff;
   margin-bottom: 16px;
 `
+
+export const Formulario = styled.form`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+`
 export const Label = styled.label`
-  display: block;
   color: #fff;
   font-size: 24px;
 `
 
 export const Campos = styled.input`
-  display: block;
   padding: 20px;
   border-radius: 10px;
   border: none;

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container_Card = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex start;
   position: relative;
   margin: 0 auto;
   align-items: center;
@@ -13,6 +13,7 @@ export const Container_Card = styled.div`
   margin-top: 16px;
 `
 export const Sub_titulo = styled.p`
+  margin-left: 16px;
   margin-right: 8px;
   font-weight: bolder;
   font-size: 24px;

@@ -1,14 +1,16 @@
+import { Provider } from 'react-redux'
 import ListadeContato from './container/ListadeContato'
 import EstiloGlobal, { Container } from './styles'
+import store from './store'
 
 function App() {
   return (
-    <div className="app">
+    <Provider store={store}>
       <EstiloGlobal />
       <Container>
         <ListadeContato />
       </Container>
-    </div>
+    </Provider>
   )
 }
 
