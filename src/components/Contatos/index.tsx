@@ -1,4 +1,5 @@
-import { Contact } from '../../store/reducers/contatos'
+import { useDispatch } from 'react-redux'
+import { Contact, removeContact } from '../../store/reducers/contatos'
 import * as S from './styles'
 
 type ContainerContatosProps = {
@@ -6,6 +7,11 @@ type ContainerContatosProps = {
 }
 
 const Container_Contatos = ({ contacts }: ContainerContatosProps) => {
+  const dispatch = useDispatch()
+
+  const handleRemove = (id: number) => {
+    dispatch(removeContact({ id }))
+  }
   return (
     <div>
       {contacts.map((contact) => (
@@ -17,7 +23,9 @@ const Container_Contatos = ({ contacts }: ContainerContatosProps) => {
           <S.Sub_titulo>Numero:</S.Sub_titulo>
           <S.Info>{contact.number}</S.Info>
           <S.Botao_editar>Editar</S.Botao_editar>
-          <S.Botao_remover>Remover</S.Botao_remover>
+          <S.Botao_remover onClick={() => handleRemove(contact.id)}>
+            Remover
+          </S.Botao_remover>
         </S.Container_Card>
       ))}
     </div>
